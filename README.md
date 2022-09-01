@@ -21,7 +21,13 @@ Counting Close People with Yolov7
 
 # Weights get
 - `%%bash`
+- `wget -P /content/YOLOV7-OBJECT-COUNTER-V1.2/weights https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt`
 - `wget -P /content/YOLOV7-OBJECT-COUNTER-V1.2/weights https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7x.pt`
+- `wget -P /content/YOLOV7-OBJECT-COUNTER-V1.2/weights https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-w6.pt`
+- `wget -P /content/YOLOV7-OBJECT-COUNTER-V1.2/weights https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-e6.pt`
+- `wget -P /content/YOLOV7-OBJECT-COUNTER-V1.2/weights https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-d6.pt`
+- `wget -P /content/YOLOV7-OBJECT-COUNTER-V1.2/weights https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-e6e.pt`
+- NOTE: You can use any of these. If one doesn't work, try the other.
 
 # Upgrade pyyaml
 - `!pip install --upgrade pyyaml==5.3.1`
