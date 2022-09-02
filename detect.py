@@ -56,7 +56,7 @@ def count(classes,image):
     a=f"{k} = {v}"
     model_values.append(v)
     align_bottom=align_bottom-35                                                   
-    cv2.putText(image, str(a) ,(int(align_right),align_bottom), cv2.FONT_HERSHEY_SIMPLEX, 1,(45,255,255),1,cv2.LINE_AA)
+    cv2.putText(image, str(a) ,(int(align_right),align_bottom), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,0,255),1,cv2.LINE_AA)
 
 
 
@@ -159,6 +159,7 @@ def detect(save_img=False):
                 i = 0
                 h = 0
                 a = None
+                top = 0
 
 
                 # Print results
@@ -183,6 +184,7 @@ def detect(save_img=False):
                       right_middle = [int(xyxy[2]),int(xyxy[3])]
                       founded_people[f"people{i}"] = [left_middle,right_middle]
                       i = i + 1
+                      top = top + xyxy[3] - xyxy[1]
                       a = True                                         
                     if save_img or view_img:  # Add bbox to image
                         label = f'{names[int(cls)]} {conf:.2f}'
@@ -201,12 +203,13 @@ def detect(save_img=False):
                         checks1 = sqrt((check_point1[0]**2) + (check_point1[1]**2))  
                         checks2 = sqrt((check_point2[0]**2) + (check_point1[1]**2))
 
-                        if (checks1 < 75 ) or (checks2 < 75):
+                        if (checks1 < int((top)/i)/1.2573) or (checks2 < int((top)/i)/1.2573): #75
                           h += 1
                           plot_box (im0,m,j,founded_people)
                 
                 
                 cv2.putText(im0,f"Closeness detector: = {h} ",(0, 105), cv2.FONT_HERSHEY_TRIPLEX,1, (255, 0, 0), 1)
+                cv2.putText(im0,f"Total Object: = {len(det)}",(0, 255), cv2.FONT_HERSHEY_TRIPLEX,1, (200, 100, 0), 1)
 
                             
     
