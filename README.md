@@ -35,6 +35,8 @@ Counting Close People with Yolov7
 # Using Counter Example:
 - `!python detect.py --weights /content/Yolov7-Close-People-Counter/weights/yolov7x.pt --source /content/Yolov7-Close-People-Counter/inference/images/bus.jpg --no-trace`
 # Results
-![bus](https://user-images.githubusercontent.com/98788987/187685498-012c769f-3d99-48a7-ba4d-0e01cd71420d.jpg)
+![bus (1)](https://user-images.githubusercontent.com/98788987/188057570-263e4886-29ab-4388-9515-df3ec5f1e359.jpg)
+
+
 # Sample Video:
 https://www.youtube.com/watch?v=fnMa_puCUow
