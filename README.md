@@ -38,5 +38,6 @@ Counting Close People with Yolov7
 ![bus (1)](https://user-images.githubusercontent.com/98788987/188057570-263e4886-29ab-4388-9515-df3ec5f1e359.jpg)
 
 
-# Sample Video:
+# Sample Videos:
 https://www.youtube.com/watch?v=fnMa_puCUow
+https://www.youtube.com/watch?v=vANr6aC7QOY
