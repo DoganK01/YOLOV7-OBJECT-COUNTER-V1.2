@@ -156,7 +156,7 @@ def detect(save_img=False):
                 det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
                 founded_classes={}
                 founded_people={}
-                i = 0
+                q = 0
                 h = 0
                 a = None
                 top = 0
@@ -182,8 +182,8 @@ def detect(save_img=False):
                     if cls == 0:
                       left_middle = [int(xyxy[0]), int(xyxy[3])]
                       right_middle = [int(xyxy[2]),int(xyxy[3])]
-                      founded_people[f"people{i}"] = [left_middle,right_middle]
-                      i = i + 1
+                      founded_people[f"people{ş}"] = [left_middle,right_middle]
+                      q = q + 1
                       top = top + xyxy[3] - xyxy[1]
                       a = True                                         
                     if save_img or view_img:  # Add bbox to image
