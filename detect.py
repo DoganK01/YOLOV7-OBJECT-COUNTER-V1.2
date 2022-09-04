@@ -202,7 +202,7 @@ def detect(save_img=False):
                         checks1 = sqrt((check_point1[0]**2) + (check_point1[1]**2))  
                         checks2 = sqrt((check_point2[0]**2) + (check_point1[1]**2))
 
-                        if (checks1 < int((top)/i)/1.2573) or (checks2 < int((top)/i)/1.2573): #75
+                        if (checks1 < int((top)/q)/1.2573) or (checks2 < int((top)/q)/1.2573): #75
                           h += 1
                           plot_box (im0,m,j,founded_people)
                 
