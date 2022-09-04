@@ -207,7 +207,7 @@ def detect(save_img=False):
                           plot_box (im0,m,j,founded_people)
                 
                 
-                cv2.putText(im0,f"Closeness detector: = {h} ",(0, 105), cv2.FONT_HERSHEY_TRIPLEX,1, (255, 0, 0), 1)
+                cv2.putText(im0,f"Close People in Pairs: = {int(h/2)} ",(0, 105), cv2.FONT_HERSHEY_TRIPLEX,1, (255, 0, 0), 1)
                 cv2.putText(im0,f"Total Object: = {len(det)}",(0, 255), cv2.FONT_HERSHEY_TRIPLEX,1, (200, 100, 0), 1)
 
                             
