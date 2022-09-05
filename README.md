@@ -9,7 +9,9 @@ Counting Close People with Yolov7
 - Video/WebCam/External Camera/IP Stream Supported
 # Sample Videos:
 https://www.youtube.com/watch?v=nB8L54-ejgQ
+
 https://www.youtube.com/watch?v=fnMa_puCUow
+
 https://www.youtube.com/watch?v=vANr6aC7QOY
 # Ready-To-Use Google Colab:
 https://colab.research.google.com/drive/1URG1BruRkVQawZGqCJ1ibV_SeYhEBdKd?usp=sharing
