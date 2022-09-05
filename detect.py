@@ -15,36 +15,75 @@ from utils.general import check_img_size, check_requirements, check_imshow, non_
     scale_coords, xyxy2xywh, strip_optimizer, set_logging, increment_path
 from utils.plots import plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
+import os
+
+def draw_line(img,left,right,color=(0,0,225),line_thickness=1):
+
+  cv2.line(img, left, right, color, thickness=line_thickness) 
 
 
-def distance_counter(img,founded_people,top,q,h,plot_box,det):
-  #m = people0 #k = [[10, 1.0], [12, 7.5]] 
+
+def counter(founded_people,xyxy,q,top,a):
+  founded_people[f"people{q}"] = [int(xyxy[0]),int(xyxy[1]),int(xyxy[2]),int(xyxy[3])]               
+  q = q + 1
+  top = top + xyxy[3] - xyxy[1]
+  a = True 
+
+  return founded_people,q,top,a
+
+def distance_counter(img,founded_people,top,q,h,plot_box,det,save_img,b,draw):
+  #m = people0 #k = [10, 1.0, 12, 7.5] 
   for ş, (m, k) in enumerate(founded_people.items()):
     for o, (j, l) in enumerate(founded_people.items()):
       if not m == j:
-        check_point1 = (np.array(k[1])) - (np.array(l[0]))
-        check_point2 = (np.array(k[0])) - (np.array(l[1]))
-        checks1 = sqrt((check_point1[0]**2) + (check_point1[1]**2))  
-        checks2 = sqrt((check_point2[0]**2) + (check_point1[1]**2))
+        left_1 = np.array([k[0], k[3]])
+        right_1 = np.array([k[2], k[3]])
 
-        if (checks1 < int((top)/q)/1.2573) or (checks2 < int((top)/q)/1.2573): #75
+        left_2 = np.array([l[0], l[3]])
+        right_2 = np.array([l[2], l[3]])
+        
+        check_point1 = right_1 - left_2
+        check_point2 = left_1 - right_2
+        checks1 = sqrt((check_point1[0]**2) + (check_point1[1]**2))  
+        checks2 = sqrt((check_point2[0]**2) + (check_point2[1]**2))
+
+        if (checks1 < int((top)/q)/1.2573): #75
           h += 1
           plot_box (img,m,j,founded_people)
+          if save_img:
+            b = save(img,l,b)
+          if draw:
+            draw_line(img,(k[2],k[3]),(l[0],l[3]))
+
+
+        if (checks2 < int((top)/q)/1.2573):
+          h += 1
+          plot_box (img,m,j,founded_people)
+          if save_img:
+            b = save(img,l,b)
+          if draw:
+            draw_line(img,(k[0],k[3]),(l[2],l[3]))
                     
-  cv2.putText(img,f"Close People in Pairs: = {int(h/2)} ",(0, 105), cv2.FONT_HERSHEY_TRIPLEX,1, (255, 0, 0), 1)
+  # cv2.putText(img,f"Close People in Pairs: = {int(h/2)} ",(0, 105), cv2.FONT_HERSHEY_TRIPLEX,1, (255, 0, 0), 1)
   cv2.putText(img,f"Total Object: = {len(det)}",(0, 255), cv2.FONT_HERSHEY_TRIPLEX,1, (200, 100, 0), 1)
 
 
 
 def plot_box (image,m,j,founded_people,color=(0,0,225),line_thickness=3):
   tl = line_thickness or round(0.002 * (image.shape[0] + image.shape[1]) / 2) + 1
-  c1, c2= (int(founded_people[m][0][0]), int(founded_people[m][0][1])),(int(founded_people[m][1][0]), int(founded_people[m][1][1]))
-  k1, k2= (int(founded_people[j][0][0]), int(founded_people[j][0][1])),(int(founded_people[j][1][0]), int(founded_people[j][1][1]))
+  c1, c2= (int(founded_people[m][0]), int(founded_people[m][3])),(int(founded_people[m][2]), int(founded_people[m][3]))
+  k1, k2= (int(founded_people[j][0]), int(founded_people[j][3])),(int(founded_people[j][2]), int(founded_people[j][3]))
   cv2.rectangle(image, c1, c2, color, thickness=tl, lineType=cv2.LINE_AA)
   cv2.rectangle(image, k1, k2, color, thickness=tl, lineType=cv2.LINE_AA)
 
-
+def save(im0,l,b):
+  bb=im0[int(l[1]):int(l[3]),int(l[0]):int(l[2])]
+  path="/content/gdrive/MyDrive/yolov7/people_imgs"
+  bb_resized=cv2.resize(bb,(224,224))
   
+  cv2.imwrite(os.path.join(path,f"people_close{b}.jpg"),bb_resized)
+  b = b + 1
+  return b
 
 """
 def plot_one_box(x, img, color=None, label=None, line_thickness=3):
@@ -76,7 +115,7 @@ def count(classes,image):
 
 
 def detect(save_img=False):
-    source, weights, view_img, save_txt, imgsz, trace = opt.source, opt.weights, opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace
+    source, weights, view_img, save_txt, imgsz, trace, save_img, draw = opt.source, opt.weights, opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace, opt.save_img, opt.draw
     save_img = not opt.nosave and not source.endswith('.txt')  # save inference images
     webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(
         ('rtsp://', 'rtmp://', 'http://', 'https://'))
@@ -125,7 +164,7 @@ def detect(save_img=False):
         model(torch.zeros(1, 3, imgsz, imgsz).to(device).type_as(next(model.parameters())))  # run once
     old_img_w = old_img_h = imgsz
     old_img_b = 1
-
+    b = 0
     t0 = time.time()
     for path, img, im0s, vid_cap in dataset:
         img = torch.from_numpy(img).to(device)
@@ -175,6 +214,7 @@ def detect(save_img=False):
                 h = 0
                 a = None
                 top = 0
+                
 
 
                 # Print results
@@ -195,43 +235,22 @@ def detect(save_img=False):
                         with open(txt_path + '.txt', 'a') as f:
                           f.write(('%g ' * len(line)).rstrip() % line + '\n')
                     if cls == 0:
+                      founded_people,q,top,a = counter(founded_people,xyxy,q,top,a)
+                      """
                       left_middle = [int(xyxy[0]), int(xyxy[3])]
                       right_middle = [int(xyxy[2]),int(xyxy[3])]
-                      founded_people[f"people{q}"] = [left_middle,right_middle]
-                      q = q + 1
-                      top = top + xyxy[3] - xyxy[1]
-                      a = True                                         
+                  
+                      """
+                                         
                     if save_img or view_img:  # Add bbox to image
                         label = f'{names[int(cls)]} {conf:.2f}'
-                        plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=1)
+                        #plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=1)
                         
-
+                    
                         
                 if a == True:
-                  distance_counter(im0,founded_people,top,q,h,plot_box,det)
-
-
-                  """
-                  #m = people0 #k = [[10, 1.0], [12, 7.5]] 
-                  for ş, (m, k) in enumerate(founded_people.items()):
-                    for o, (j, l) in enumerate(founded_people.items()):
-                      if not m == j:
-                        check_point1 = (np.array(k[1])) - (np.array(l[0]))
-                        check_point2 = (np.array(k[0])) - (np.array(l[1]))
-                        checks1 = sqrt((check_point1[0]**2) + (check_point1[1]**2))  
-                        checks2 = sqrt((check_point2[0]**2) + (check_point1[1]**2))
-
-                        if (checks1 < int((top)/q)/1.2573) or (checks2 < int((top)/q)/1.2573): #75
-                          h += 1
-                          plot_box (im0,m,j,founded_people)
-                
-                
-                cv2.putText(im0,f"Close People in Pairs: = {int(h/2)} ",(0, 105), cv2.FONT_HERSHEY_TRIPLEX,1, (255, 0, 0), 1)
-                cv2.putText(im0,f"Total Object: = {len(det)}",(0, 255), cv2.FONT_HERSHEY_TRIPLEX,1, (200, 100, 0), 1)
-                """
-                            
-    
-             
+                  distance_counter(im0,founded_people,top,q,h,plot_box,det,save_img,b,draw)
+                         
             # Print time (inference + NMS)
             print(f'{s}Done. ({(1E3 * (t2 - t1)):.1f}ms) Inference, ({(1E3 * (t3 - t2)):.1f}ms) NMS')
 
@@ -287,6 +306,8 @@ if __name__ == '__main__':
     parser.add_argument('--name', default='exp', help='save results to project/name')
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--no-trace', action='store_true', help='don`t trace model')
+    parser.add_argument('--save_img', default='True', help='Save close people images')
+    parser.add_argument('--draw', default='False', help='Draw Line between close People')
     opt = parser.parse_args()
     print(opt)
     #check_requirements(exclude=('pycocotools', 'thop'))
