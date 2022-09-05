@@ -17,7 +17,22 @@ from utils.plots import plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
 
 
+def distance_counter(img,founded_people,top,q,h,plot_box,det):
+  #m = people0 #k = [[10, 1.0], [12, 7.5]] 
+  for ş, (m, k) in enumerate(founded_people.items()):
+    for o, (j, l) in enumerate(founded_people.items()):
+      if not m == j:
+        check_point1 = (np.array(k[1])) - (np.array(l[0]))
+        check_point2 = (np.array(k[0])) - (np.array(l[1]))
+        checks1 = sqrt((check_point1[0]**2) + (check_point1[1]**2))  
+        checks2 = sqrt((check_point2[0]**2) + (check_point1[1]**2))
 
+        if (checks1 < int((top)/q)/1.2573) or (checks2 < int((top)/q)/1.2573): #75
+          h += 1
+          plot_box (img,m,j,founded_people)
+                    
+  cv2.putText(img,f"Close People in Pairs: = {int(h/2)} ",(0, 105), cv2.FONT_HERSHEY_TRIPLEX,1, (255, 0, 0), 1)
+  cv2.putText(img,f"Total Object: = {len(det)}",(0, 255), cv2.FONT_HERSHEY_TRIPLEX,1, (200, 100, 0), 1)
 
 
 
@@ -182,7 +197,7 @@ def detect(save_img=False):
                     if cls == 0:
                       left_middle = [int(xyxy[0]), int(xyxy[3])]
                       right_middle = [int(xyxy[2]),int(xyxy[3])]
-                      founded_people[f"people{ş}"] = [left_middle,right_middle]
+                      founded_people[f"people{q}"] = [left_middle,right_middle]
                       q = q + 1
                       top = top + xyxy[3] - xyxy[1]
                       a = True                                         
@@ -193,6 +208,10 @@ def detect(save_img=False):
 
                         
                 if a == True:
+                  distance_counter(im0,founded_people,top,q,h,plot_box,det)
+
+
+                  """
                   #m = people0 #k = [[10, 1.0], [12, 7.5]] 
                   for ş, (m, k) in enumerate(founded_people.items()):
                     for o, (j, l) in enumerate(founded_people.items()):
@@ -209,7 +228,7 @@ def detect(save_img=False):
                 
                 cv2.putText(im0,f"Close People in Pairs: = {int(h/2)} ",(0, 105), cv2.FONT_HERSHEY_TRIPLEX,1, (255, 0, 0), 1)
                 cv2.putText(im0,f"Total Object: = {len(det)}",(0, 255), cv2.FONT_HERSHEY_TRIPLEX,1, (200, 100, 0), 1)
-
+                """
                             
     
              
