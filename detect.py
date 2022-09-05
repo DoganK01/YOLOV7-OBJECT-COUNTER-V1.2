@@ -307,7 +307,7 @@ if __name__ == '__main__':
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--no-trace', action='store_true', help='don`t trace model')
     parser.add_argument('--save_img', default='True', help='Save close people images')
-    parser.add_argument('--draw', default='False', help='Draw Line between close People')
+    parser.add_argument('--draw', default='True', help='Draw Line between close People')
     opt = parser.parse_args()
     print(opt)
     #check_requirements(exclude=('pycocotools', 'thop'))
