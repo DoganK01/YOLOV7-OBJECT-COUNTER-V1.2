@@ -10,7 +10,6 @@ Counting Close People with Yolov7
 # Sample Videos:
 https://www.youtube.com/watch?v=nB8L54-ejgQ
 
-https://www.youtube.com/watch?v=fnMa_puCUow
 
 https://www.youtube.com/watch?v=vANr6aC7QOY
 # Ready-To-Use Google Colab:
