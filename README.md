@@ -40,7 +40,10 @@ https://colab.research.google.com/drive/1URG1BruRkVQawZGqCJ1ibV_SeYhEBdKd?usp=sh
 - `!pip install --upgrade pyyaml==5.3.1`
 
 # Using Counter Example:
+- For Visuality:
 - `!python detect.py --weights /content/Yolov7-Close-People-Counter/weights/yolov7x.pt --source /content/Yolov7-Close-People-Counter/inference/images/bus.jpg --no-trace`
+- For Counter:
+- `!python counter.py --weights /content/Yolov7-Close-People-Counter/weights/yolov7x.pt --source /content/Yolov7-Close-People-Counter/inference/images/bus.jpg --no-trace`
 # Results
 ![bus (1)](https://user-images.githubusercontent.com/98788987/188057570-263e4886-29ab-4388-9515-df3ec5f1e359.jpg)
 
