@@ -38,7 +38,7 @@ https://colab.research.google.com/drive/1URG1BruRkVQawZGqCJ1ibV_SeYhEBdKd?usp=sh
 # Upgrade pyyaml
 - `!pip install --upgrade pyyaml==5.3.1`
 
-# Using Counter Example:
+# Using Codes:
 - For Visuality:
 - `!python detect.py --weights /content/Yolov7-Close-People-Counter/weights/yolov7x.pt --source /content/Yolov7-Close-People-Counter/inference/images/bus.jpg --no-trace`
 - For Close People Counter:
