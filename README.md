@@ -1,5 +1,13 @@
 # Yolov7-Close-People-CounterV1.2
 
+# Track Counter:
+
+
+
+https://user-images.githubusercontent.com/98788987/203448709-8f58c663-230a-4fd9-8177-5d76859d1ce8.mp4
+
+
+
 Counting Close People with Yolov7
 
 
@@ -47,4 +55,20 @@ https://colab.research.google.com/drive/1URG1BruRkVQawZGqCJ1ibV_SeYhEBdKd?usp=sh
 - `!python detect_and_count.py --weights /content/Yolov7-Close-People-Counter/weights/yolov7x.pt --source /content/Yolov7-Close-People-Counter/inference/images/bus.jpg --no-trace`
 # Results
 ![bus (1)](https://user-images.githubusercontent.com/98788987/188057570-263e4886-29ab-4388-9515-df3ec5f1e359.jpg)
+
+
+https://user-images.githubusercontent.com/98788987/203448934-37113304-40d3-45ac-8f62-70a14863873f.mp4
+
+
+
+
+
+https://user-images.githubusercontent.com/98788987/203449682-0fe883a2-d7eb-4398-95e5-96be797b0f5f.mp4
+
+
+
+
+
+
+
 
