@@ -12,13 +12,14 @@ https://user-images.githubusercontent.com/98788987/203656286-f8efa500-85cf-483a-
 
 
 
-Counting Close People with Yolov7
+Social Distance with Yolov7
 
 
-- Censoring and counting all cigarettes on the screen and saving smoker's faces in the folder or any database
-- Useful for public non-smoking areas
+
+- Count all objetcs by classes and works perfetcly on every image or on a video
 - Code can run on Both (CPU & GPU)
 - Video/WebCam/External Camera/IP Stream Supported
+
 # Sample Videos:
 https://www.youtube.com/watch?v=nB8L54-ejgQ
 
