@@ -72,7 +72,9 @@ https://user-images.githubusercontent.com/98788987/203449682-0fe883a2-d7eb-4398-
 
 
 
-
+# References
+- https://github.com/WongKinYiu/yolov7
+- https://github.com/xinntao/Real-ESRGAN
 
 
 
