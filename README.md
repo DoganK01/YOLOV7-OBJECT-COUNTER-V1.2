@@ -70,6 +70,10 @@ https://user-images.githubusercontent.com/98788987/203448934-37113304-40d3-45ac-
 
 https://user-images.githubusercontent.com/98788987/203449682-0fe883a2-d7eb-4398-95e5-96be797b0f5f.mp4
 
+# Real-ESRGAN
+Saving people who break the social distance by increasing the resolution from real-video: (Real-ESRGAN):
+
+https://user-images.githubusercontent.com/98788987/218627242-256afe17-e221-432d-9f9f-26ee6fd8c2f0.mp4
 
 
 # References
