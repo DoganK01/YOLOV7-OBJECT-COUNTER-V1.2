@@ -52,9 +52,9 @@ https://colab.research.google.com/drive/1URG1BruRkVQawZGqCJ1ibV_SeYhEBdKd?usp=sh
 - `!pip install --upgrade pyyaml==5.3.1`
 
 # Using Codes:
-- For Visuality:
+- For Close People with Red Lines:
 - `!python detect.py --weights /content/Yolov7-Close-People-Counter/weights/yolov7x.pt --source /content/Yolov7-Close-People-Counter/inference/images/bus.jpg --no-trace`
-- For Close People Counter:
+- For Close People "Counter":
 - `!python counter.py --weights /content/Yolov7-Close-People-Counter/weights/yolov7x.pt --source /content/Yolov7-Close-People-Counter/inference/images/bus.jpg --no-trace`
 - For Object Counter:
 - `!python detect_and_count.py --weights /content/Yolov7-Close-People-Counter/weights/yolov7x.pt --source /content/Yolov7-Close-People-Counter/inference/images/bus.jpg --no-trace`
